@@ -1,6 +1,7 @@
 import type { RootScreenProps } from '@/navigation/types';
 
 import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Text, View } from 'react-native';

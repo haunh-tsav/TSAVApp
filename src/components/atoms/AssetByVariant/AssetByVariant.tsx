@@ -1,6 +1,6 @@
 import type { ImageProps, ImageSourcePropType } from 'react-native';
 
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Image } from 'react-native';
 import * as z from 'zod';
 
