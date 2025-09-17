@@ -1,3 +1,4 @@
+import React from 'react';
 import { useErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { Text, TouchableOpacity, View } from 'react-native';

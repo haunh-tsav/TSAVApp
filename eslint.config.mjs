@@ -97,7 +97,6 @@ export default tseslint.config(
           type: 'alphabetical',
         },
       ],
-
       'react-refresh/only-export-components': OFF,
       'react/forbid-component-props': OFF,
       'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', '.jsx'] }],

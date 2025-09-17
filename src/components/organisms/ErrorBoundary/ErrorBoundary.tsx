@@ -1,6 +1,7 @@
 import type { ErrorInfo } from 'react';
 import type { ErrorBoundaryPropsWithFallback } from 'react-error-boundary';
 
+import React from 'react';
 import { ErrorBoundary as DefaultErrorBoundary } from 'react-error-boundary';
 
 import { DefaultError } from '@/components/molecules';

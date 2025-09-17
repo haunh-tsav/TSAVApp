@@ -2,6 +2,7 @@ import type { RootStackParamList } from '@/navigation/types';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { Paths } from '@/navigation/paths';
