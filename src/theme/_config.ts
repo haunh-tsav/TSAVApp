@@ -1,6 +1,6 @@
-import type { ThemeConfiguration } from '@/theme/types/config';
+import type { ThemeConfiguration } from '@/theme/types/config'
 
-import { DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 
 export const enum Variant {
   DARK = 'dark',
@@ -17,7 +17,7 @@ const colorsLight = {
   purple500: '#44427D',
   red500: '#C13333',
   skeleton: '#A1A1A1',
-} as const;
+} as const
 
 const colorsDark = {
   gray100: '#000000',
@@ -30,9 +30,9 @@ const colorsDark = {
   purple500: '#A6A4F0',
   red500: '#C13333',
   skeleton: '#303030',
-} as const;
+} as const
 
-const sizes = [12, 16, 24, 32, 40, 80] as const;
+const sizes = [12, 16, 24, 32, 40, 80] as const
 
 export const config = {
   backgrounds: colorsLight,
@@ -69,4 +69,4 @@ export const config = {
       },
     },
   },
-} as const satisfies ThemeConfiguration;
+} as const satisfies ThemeConfiguration

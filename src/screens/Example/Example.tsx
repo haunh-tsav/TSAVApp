@@ -1,76 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
-import { useI18n, useUser } from '@/hooks';
-import { useTheme } from '@/theme';
+import { useI18n } from '@/hooks'
+import { useTheme } from '@/theme'
 
-import { AssetByVariant, IconByVariant, Skeleton } from '@/components/atoms';
-import { SafeScreen } from '@/components/templates';
+import useUserService from '@/api/services/hooks/useUser'
+import { AssetByVariant, IconByVariant, Skeleton } from '@/components/atoms'
+import { SafeScreen } from '@/components/templates'
 
-const MAX_RANDOM_ID = 9;
+const MAX_RANDOM_ID = 9
 
 function Example() {
-  const { t } = useTranslation();
-  const { useFetchOneQuery } = useUser();
-  const { toggleLanguage } = useI18n();
+  const { t } = useTranslation()
+  const { useGetUserById } = useUserService()
+  const { toggleLanguage } = useI18n()
 
-  const {
-    backgrounds,
-    changeTheme,
-    colors,
-    components,
-    fonts,
-    gutters,
-    layout,
-    variant,
-  } = useTheme();
+  const { backgrounds, changeTheme, colors, components, fonts, gutters, layout, variant } =
+    useTheme()
 
-  const [currentId, setCurrentId] = useState(-1);
+  const [userId, setUserId] = useState(-1)
 
-  const fetchOneUserQuery = useFetchOneQuery(currentId);
+  const getUser = useGetUserById(userId)
 
   useEffect(() => {
-    if (fetchOneUserQuery.isSuccess) {
-      Alert.alert(
-        t('screen_example.hello_user', { name: fetchOneUserQuery.data.name }),
-      );
+    if (getUser.isSuccess) {
+      Alert.alert(t('screen_example.hello_user', { name: getUser.data?.username }))
     }
-  }, [fetchOneUserQuery.isSuccess, fetchOneUserQuery.data, t]);
+  }, [getUser.isSuccess, getUser.data, t])
 
   const onChangeTheme = () => {
-    changeTheme(variant === 'default' ? 'dark' : 'default');
-  };
+    changeTheme(variant === 'default' ? 'dark' : 'default')
+  }
 
   const handleResetError = () => {
-    void fetchOneUserQuery.refetch();
-  };
+    void getUser.refetch()
+  }
 
   return (
     <SafeScreen
-      isError={fetchOneUserQuery.isError}
+      isError={getUser.isError}
       onResetError={() => {
-        handleResetError();
+        handleResetError()
       }}
     >
       <ScrollView>
-        <View
-          style={[
-            layout.justifyCenter,
-            layout.itemsCenter,
-            gutters.marginTop_80,
-          ]}
-        >
-          <View
-            style={[layout.relative, backgrounds.gray100, components.circle250]}
-          />
+        <View style={[layout.justifyCenter, layout.itemsCenter, gutters.marginTop_80]}>
+          <View style={[layout.relative, backgrounds.gray100, components.circle250]} />
 
           <View style={[layout.absolute, gutters.paddingTop_80]}>
-            <AssetByVariant
-              path="tom"
-              resizeMode="contain"
-              style={{ height: 300, width: 300 }}
-            />
+            <AssetByVariant path="tom" resizeMode="contain" style={{ height: 300, width: 300 }} />
           </View>
         </View>
 
@@ -79,30 +58,21 @@ function Example() {
             <Text style={[fonts.size_40, fonts.gray800, fonts.bold]}>
               {t('screen_example.title')}
             </Text>
-            <Text
-              style={[fonts.size_16, fonts.gray200, gutters.marginBottom_40]}
-            >
+            <Text style={[fonts.size_16, fonts.gray200, gutters.marginBottom_40]}>
               {t('screen_example.description')}
             </Text>
           </View>
 
-          <View
-            style={[
-              layout.row,
-              layout.justifyBetween,
-              layout.fullWidth,
-              gutters.marginTop_16,
-            ]}
-          >
+          <View style={[layout.row, layout.justifyBetween, layout.fullWidth, gutters.marginTop_16]}>
             <Skeleton
               height={64}
-              loading={fetchOneUserQuery.isLoading}
+              loading={getUser.isLoading}
               style={{ borderRadius: components.buttonCircle.borderRadius }}
               width={64}
             >
               <TouchableOpacity
                 onPress={() => {
-                  setCurrentId(Math.ceil(Math.random() * MAX_RANDOM_ID + 1));
+                  setUserId(Math.ceil(Math.random() * MAX_RANDOM_ID + 1))
                 }}
                 style={[components.buttonCircle, gutters.marginBottom_16]}
                 testID="fetch-user-button"
@@ -130,7 +100,7 @@ function Example() {
         </View>
       </ScrollView>
     </SafeScreen>
-  );
+  )
 }
 
-export default Example;
+export default Example

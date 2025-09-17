@@ -1,12 +1,16 @@
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "react-jsx",
     "types": ["react-native", "jest", "node"],
     "paths": {
       "@/*": ["./src/*"]
     },
-    "noUnusedLocals": true
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "include": [
     "src/tests/**/*",

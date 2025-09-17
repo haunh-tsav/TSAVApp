@@ -1,4 +1,4 @@
-import type { ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native'
 
 export default {
   col: {
@@ -78,4 +78,4 @@ export default {
   z10: {
     zIndex: 10,
   },
-} as const satisfies Record<string, ViewStyle>;
+} as const satisfies Record<string, ViewStyle>

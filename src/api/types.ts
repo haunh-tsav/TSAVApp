@@ -1,9 +1,5 @@
-export type ItemStatusType =
-  | 'active'
-  | 'archived'
-  | 'closed'
-  | 'deleted'
-  | 'draft'
+export type ItemStatusType = 'active' | 'archived' | 'closed' | 'deleted' | 'draft'
+export type SortedDirection = 'asc' | 'desc'
 
 // Filter type
 export type FilterType = {
@@ -45,4 +41,34 @@ export type RequestDataType = {
   paginator: PaginatorType
   search: SearchType
   sorting: SortingType
+}
+
+export type RequiredDataType = {
+  id?: number
+}
+
+export type APIService<T extends RequiredDataType> = {
+  createItem: (newItem: T, accessToken: string) => Promise<ResponseDataType<T>>
+  getItemByPk: (id: number, accessToken: string) => Promise<ResponseDataType<T>>
+  getItemBy?: (
+    query: { field: string; id: number },
+    accessToken: string,
+  ) => Promise<ResponseDataType<T>>
+  getItems: (parameters: RequestDataType, accessToken: string) => Promise<ResponseDataType<T>>
+  updateItemByPk: (id: number, itemToUpdate: T, accessToken: string) => Promise<ResponseDataType<T>>
+  updateItemBy?: (
+    query: { field: string; id: number },
+    itemToUpdate: T,
+    accessToken: string,
+  ) => Promise<ResponseDataType<T>>
+  updateItemsBy?: (
+    query: { field: string; id: number },
+    itemsToUpdate: T[],
+    accessToken: string,
+  ) => Promise<ResponseDataType<T>>
+  deleteItemByPk: (id: number, accessToken: string) => Promise<ResponseDataType<T>>
+  deleteItemBy?: (
+    query: { field: string; id: number },
+    accessToken: string,
+  ) => Promise<ResponseDataType<T>>
 }

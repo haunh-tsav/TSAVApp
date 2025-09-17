@@ -1,101 +1,72 @@
 // src/api/services/posts.service.ts
-import { User } from '@/models/user.model'
 
 import apiClient from '../client'
+import { User } from '../schemas/UserSchema'
 import { RequestDataType, ResponseDataType } from '../types'
 
-const NAMESPACE = '/users'
+const NAMESPACE = 'users'
 
-// Create new user (POST)
-export const createUser = async (
-  newItem: User,
-): Promise<ResponseDataType<User>> => {
-  return await apiClient
-    .post<ResponseDataType<User>>(NAMESPACE, newItem)
-    .then((res) => {
-      return res.data
-    })
-    .catch((error) => {
-      throw error
-    })
-    .finally(() => {
-      // console.log('done')
-    })
-}
-
-// Get user by id (GET)
-export const getUserById = async (
-  id: number,
-): Promise<ResponseDataType<User>> => {
-  return await apiClient
-    .get<ResponseDataType<User>>(`${NAMESPACE}?id=${id}`)
-    .then((res) => res.data)
-    .catch((error) => {
-      throw error
-    })
-    .finally(() => {
-      // console.log('done')
-    })
-}
-
-// Get user by employeeCode (GET)
-export const getUserByCode = async (
-  code: string,
-): Promise<ResponseDataType<User>> => {
-  return await apiClient
-    .get<ResponseDataType<User>>(`${NAMESPACE}?code=${code}`)
-    .then((res) => res.data)
-    .catch((error) => {
-      throw error
-    })
-    .finally(() => {
-      // console.log('done')
-    })
-}
-
-// Get all user with parameters (POST)
-export const getAllUsers = async (
-  parameters: RequestDataType,
-): Promise<ResponseDataType<User[]>> => {
-  return await apiClient
-    .post<ResponseDataType<User[]>>(NAMESPACE, parameters)
-    .then((res) => res.data)
-    .catch((error) => {
-      throw error
-    })
-    .finally(() => {
-      // console.log('done')
-    })
-}
-
-// Partial update user by id (PATCH)
-export const partialUpdateUserById = async (
-  id: number,
-  newItem: Partial<User>,
-): Promise<ResponseDataType<User>> => {
-  return await apiClient
-    .patch<ResponseDataType<User>>(`${NAMESPACE}?id=${id}`, newItem)
-    .then((res) => res.data)
-    .catch((error) => {
-      throw error
-    })
-    .finally(() => {
-      // console.log('done')
-    })
-}
-
-// Update record user by id (PUT)
-export const updateRecordUserById = async (
-  id: number,
-  newItem: User,
-): Promise<ResponseDataType<User>> => {
-  return await apiClient
-    .put<ResponseDataType<User>>(`${NAMESPACE}?id=${id}`, newItem)
-    .then((response) => response.data)
-    .catch((error) => {
-      throw error
-    })
-    .finally(() => {
-      // console.log('done')
-    })
+export const userService = {
+  createUser: async (newItem: User): Promise<ResponseDataType<User> | undefined> => {
+    return await apiClient
+      .post<ResponseDataType<User>>(`/${NAMESPACE}`, newItem)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error fetching user by ID:', error)
+        return undefined
+      })
+  },
+  getUserById: async (userId: number): Promise<ResponseDataType<User> | undefined> => {
+    return await apiClient
+      .get<ResponseDataType<User>>(`/${NAMESPACE}?id=${userId}`)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error fetching user by ID:', error)
+        return undefined
+      })
+  },
+  getUserByCode: async (code: string): Promise<ResponseDataType<User> | undefined> => {
+    return await apiClient
+      .get<ResponseDataType<User>>(`/${NAMESPACE}?code=${code}`)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error fetching user by Code:', error)
+        return undefined
+      })
+  },
+  getAllUsers: async (
+    parameters: RequestDataType,
+  ): Promise<ResponseDataType<User[]> | undefined> => {
+    return await apiClient
+      .post<ResponseDataType<User[]>>(`/${NAMESPACE}`, parameters)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error fetching user by Code:', error)
+        return undefined
+      })
+  },
+  partialUpdateUserById: async (
+    id: number,
+    newItem: Partial<User>,
+  ): Promise<ResponseDataType<User> | undefined> => {
+    return await apiClient
+      .patch<ResponseDataType<User>>(`/${NAMESPACE}?id=${id}`, newItem)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error fetching user by Code:', error)
+        return undefined
+      })
+  },
+  updateRecordUserById: async (
+    id: number,
+    newItem: User,
+  ): Promise<ResponseDataType<User> | undefined> => {
+    return await apiClient
+      .put<ResponseDataType<User>>(`/${NAMESPACE}?id=${id}`, newItem)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error fetching user by Code:', error)
+        return undefined
+      })
+  },
 }

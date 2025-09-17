@@ -1,18 +1,17 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fireEvent, render, screen } from '@testing-library/react-native';
-import React from 'react';
-import { I18nextProvider } from 'react-i18next';
-import { MMKV } from 'react-native-mmkv';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { fireEvent, render, screen } from '@testing-library/react-native'
+import { I18nextProvider } from 'react-i18next'
+import { MMKV } from 'react-native-mmkv'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { SupportedLanguages } from '@/hooks/language/schema';
-import { ThemeProvider } from '@/theme';
-import i18n from '@/translations';
+import { SupportedLanguages } from '@/hooks/language/schema'
+import { ThemeProvider } from '@/theme'
+import i18n from '@/translations'
 
-import Example from './Example';
+import Example from './Example'
 
 describe('Example screen should render correctly', () => {
-  let storage: MMKV;
+  let storage: MMKV
   const queryClient = new QueryClient({
     defaultOptions: {
       mutations: {
@@ -23,11 +22,11 @@ describe('Example screen should render correctly', () => {
         retry: false,
       },
     },
-  });
+  })
 
   beforeAll(() => {
-    storage = new MMKV();
-  });
+    storage = new MMKV()
+  })
 
   test('the user change the language', () => {
     const component = (
@@ -40,18 +39,18 @@ describe('Example screen should render correctly', () => {
           </I18nextProvider>
         </ThemeProvider>
       </SafeAreaProvider>
-    );
+    )
 
-    render(component);
+    render(component)
 
-    expect(i18n.language).toBe(SupportedLanguages.FR_FR);
+    expect(i18n.language).toBe(SupportedLanguages.FR_FR)
 
-    const button = screen.getByTestId('change-language-button');
-    expect(button).toBeDefined();
-    fireEvent.press(button);
+    const button = screen.getByTestId('change-language-button')
+    expect(button).toBeDefined()
+    fireEvent.press(button)
 
-    expect(i18n.language).toBe(SupportedLanguages.EN_EN);
-  });
+    expect(i18n.language).toBe(SupportedLanguages.EN_EN)
+  })
 
   test('the user change the theme', () => {
     const component = (
@@ -64,16 +63,16 @@ describe('Example screen should render correctly', () => {
           </I18nextProvider>
         </ThemeProvider>
       </SafeAreaProvider>
-    );
+    )
 
-    render(component);
+    render(component)
 
-    expect(storage.getString('theme')).toBe('default');
+    expect(storage.getString('theme')).toBe('default')
 
-    const button = screen.getByTestId('change-theme-button');
-    expect(button).toBeDefined();
-    fireEvent.press(button);
+    const button = screen.getByTestId('change-theme-button')
+    expect(button).toBeDefined()
+    fireEvent.press(button)
 
-    expect(storage.getString('theme')).toBe('dark');
-  });
-});
+    expect(storage.getString('theme')).toBe('dark')
+  })
+})

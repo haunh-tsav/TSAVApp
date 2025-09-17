@@ -1,7 +1,7 @@
-import type { UnionConfiguration } from '@/theme/types/config';
-import type { Gutters } from '@/theme/types/gutters';
+import type { UnionConfiguration } from '@/theme/types/config'
+import type { Gutters } from '@/theme/types/gutters'
 
-import { type ViewStyle } from 'react-native';
+import { type ViewStyle } from 'react-native'
 
 export const generateGutters = (configuration: UnionConfiguration): Gutters => {
   // eslint-disable-next-line unicorn/no-array-reduce
@@ -52,11 +52,8 @@ export const generateGutters = (configuration: UnionConfiguration): Gutters => {
       [`paddingVertical_${current}`]: {
         paddingVertical: current,
       },
-    });
-  }, {} as Gutters);
-};
+    })
+  }, {} as Gutters)
+}
 
-export const staticGutterStyles = {} as const satisfies Record<
-  string,
-  ViewStyle
->;
+export const staticGutterStyles = {} as const satisfies Record<string, ViewStyle>

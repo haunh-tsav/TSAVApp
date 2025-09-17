@@ -1,25 +1,23 @@
-import eslintConfigPrettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
-import jest from 'eslint-plugin-jest';
-import perfectionist from 'eslint-plugin-perfectionist';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import testingLibrary from 'eslint-plugin-testing-library';
-import unicorn from 'eslint-plugin-unicorn';
+import eslintConfigPrettier from 'eslint-config-prettier'
+import importPlugin from 'eslint-plugin-import'
+import jest from 'eslint-plugin-jest'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import testingLibrary from 'eslint-plugin-testing-library'
+import unicorn from 'eslint-plugin-unicorn'
 
-const ERROR = 2;
-const OFF = 0;
+const ERROR = 2
+const OFF = 0
 
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import eslint from '@eslint/js'
+import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
   unicorn.configs.all,
-  perfectionist.configs['recommended-alphabetical'],
   importPlugin.flatConfigs.react,
   importPlugin.flatConfigs['react-native'],
   importPlugin.flatConfigs.typescript,
@@ -43,10 +41,6 @@ export default tseslint.config(
         node: true,
         typescript: true,
       },
-      perfectionist: {
-        partitionByComment: true,
-        type: 'alphabetical',
-      },
       react: {
         version: 'detect',
       },
@@ -57,6 +51,7 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
     },
+    files: ['src/**/*.{ts,tsx,js,jsx}'], // Chỉ kiểm tra trong folder src
     rules: {
       ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/consistent-type-definitions': [ERROR, 'type'],
@@ -65,38 +60,6 @@ export default tseslint.config(
       '@typescript-eslint/restrict-template-expressions': OFF,
       'import/no-unresolved': OFF, // handled by TypeScript
       'no-console': [ERROR, { allow: ['warn', 'error'] }],
-      'no-magic-numbers': [
-        ERROR,
-        { ignore: [-1, 0, 1, 2, 3, 4, 5, 6], ignoreArrayIndexes: true },
-      ],
-      'perfectionist/sort-imports': [
-        'error',
-        {
-          customGroups: {
-            value: {
-              components: '@/components(/.+)?',
-              hooks: '@/hooks(/.+)?',
-              navigation: '@/navigation(/.+)?',
-              screens: '@/screens(/.+)?',
-              test: '@/test(/.+)?',
-              theme: '@/theme(/.+)?',
-              translations: '@/translations(/.+)?',
-            },
-          },
-          groups: [
-            'side-effect',
-            ['type', 'internal-type'],
-            ['builtin', 'external'],
-            ['theme', 'hooks', 'navigation', 'translations'],
-            ['components', 'screens'],
-            ['test'],
-            'internal',
-            'unknown',
-          ],
-          newlinesBetween: 'always',
-          type: 'alphabetical',
-        },
-      ],
       'react-refresh/only-export-components': OFF,
       'react/forbid-component-props': OFF,
       'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', '.jsx'] }],
@@ -132,13 +95,13 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/theme/*.ts'],
+    files: ['src/theme/*.ts'],
     rules: {
       'no-magic-numbers': OFF,
     },
   },
   {
-    files: ['*.conf.js', '*.config.js', '*.setup.js'],
+    files: ['src/**/*.conf.js', 'src/**/*.config.js', 'src/**/*.setup.js'],
     rules: {
       '@typescript-eslint/no-require-imports': OFF,
       '@typescript-eslint/no-unsafe-assignment': OFF,
@@ -148,13 +111,13 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/*.spec.{js,ts,jsx,tsx}', '**/*.test.{js,ts,jsx,tsx}'],
+    files: ['src/**/*.spec.{js,ts,jsx,tsx}', 'src/**/*.test.{js,ts,jsx,tsx}'],
     ...jest.configs['flat/recommended'],
     rules: {
       ...jest.configs['flat/recommended'].rules,
     },
   },
   {
-    ignores: ['plugins/**'],
+    ignores: ['**/*', '!src/**'], // Bỏ qua tất cả trừ folder src
   },
-);
+)

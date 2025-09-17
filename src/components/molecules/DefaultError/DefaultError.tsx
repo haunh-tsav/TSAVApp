@@ -1,20 +1,19 @@
-import React from 'react';
-import { useErrorBoundary } from 'react-error-boundary';
-import { useTranslation } from 'react-i18next';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { useErrorBoundary } from 'react-error-boundary'
+import { useTranslation } from 'react-i18next'
+import { Text, TouchableOpacity, View } from 'react-native'
 
-import { useTheme } from '@/theme';
+import { useTheme } from '@/theme'
 
-import { IconByVariant } from '@/components/atoms';
+import { IconByVariant } from '@/components/atoms'
 
 type Properties = {
-  readonly onReset?: () => void;
-};
+  readonly onReset?: () => void
+}
 
 function DefaultErrorScreen({ onReset = undefined }: Properties) {
-  const { colors, fonts, gutters, layout } = useTheme();
-  const { t } = useTranslation();
-  const { resetBoundary } = useErrorBoundary();
+  const { colors, fonts, gutters, layout } = useTheme()
+  const { t } = useTranslation()
+  const { resetBoundary } = useErrorBoundary()
 
   return (
     <View
@@ -26,15 +25,8 @@ function DefaultErrorScreen({ onReset = undefined }: Properties) {
         gutters.padding_16,
       ]}
     >
-      <IconByVariant
-        height={42}
-        path="fire"
-        stroke={colors.red500}
-        width={42}
-      />
-      <Text style={[fonts.gray800, fonts.bold, fonts.size_16]}>
-        {t('error_boundary.title')}
-      </Text>
+      <IconByVariant height={42} path="fire" stroke={colors.red500} width={42} />
+      <Text style={[fonts.gray800, fonts.bold, fonts.size_16]}>{t('error_boundary.title')}</Text>
       <Text style={[fonts.gray800, fonts.size_12, fonts.alignCenter]}>
         {t('error_boundary.description')}
       </Text>
@@ -42,17 +34,15 @@ function DefaultErrorScreen({ onReset = undefined }: Properties) {
       {onReset ? (
         <TouchableOpacity
           onPress={() => {
-            resetBoundary();
-            onReset();
+            resetBoundary()
+            onReset()
           }}
         >
-          <Text style={[fonts.gray800, fonts.size_16]}>
-            {t('error_boundary.cta')}
-          </Text>
+          <Text style={[fonts.gray800, fonts.size_16]}>{t('error_boundary.cta')}</Text>
         </TouchableOpacity>
       ) : undefined}
     </View>
-  );
+  )
 }
 
-export default DefaultErrorScreen;
+export default DefaultErrorScreen

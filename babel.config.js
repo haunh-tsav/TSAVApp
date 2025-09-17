@@ -15,5 +15,12 @@ module.exports = {
     '@babel/plugin-transform-export-namespace-from',
     'react-native-worklets/plugin', // need to be the last plugin
   ],
-  presets: ['module:@react-native/babel-preset'],
-};
+  presets: [
+    [
+      'module:@react-native/babel-preset',
+      {
+        react: { runtime: 'automatic' }, // Thêm dòng này
+      },
+    ],
+  ],
+}

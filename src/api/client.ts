@@ -1,5 +1,8 @@
 // src/api/client.ts
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { MMKV } from 'react-native-mmkv'
+
+const storage = new MMKV()
 
 // Tạo instance chung cho toàn bộ API
 const apiClient = axios.create({
@@ -8,34 +11,35 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
   timeout: 10_000, // timeout 10s
-});
+})
 
 // 🛠️ Interceptors
 // Add token trước khi gửi request
 apiClient.interceptors.request.use(
-  async (config) => {
+  (config: InternalAxiosRequestConfig) => {
     // Ví dụ: lấy token từ MMKV (hoặc AsyncStorage)
     // const token = MMKV.getString('access_token');
-    const token = undefined;
+    const token = storage.getString('access_token')
 
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`
     }
-    return config;
+    return config
   },
-  (error) => Promise.reject(error),
-);
+  (error: AxiosError) => Promise.reject(new Error(error.message)),
+)
 
 // Xử lý response / refresh token
 apiClient.interceptors.response.use(
-  (response) => response,
-  async (error) => {
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
     // Nếu lỗi 401 → có thể refresh token tại đây
-    if (error.response?.status === 401) {
+    const { response } = error
+    if (response && response.status === 401) {
       // TODO: refresh token hoặc redirect login
     }
-    throw error;
+    throw error
   },
-);
+)
 
-export default apiClient;
+export default apiClient

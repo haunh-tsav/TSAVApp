@@ -1,8 +1,8 @@
-import type { UnionConfiguration } from '@/theme/types/config';
-import type { FontColors, FontSizes } from '@/theme/types/fonts';
-import type { TextStyle } from 'react-native';
+import type { UnionConfiguration } from '@/theme/types/config'
+import type { FontColors, FontSizes } from '@/theme/types/fonts'
+import type { TextStyle } from 'react-native'
 
-import { config } from '@/theme/_config';
+import { config } from '@/theme/_config'
 
 export const generateFontColors = (configuration: UnionConfiguration) => {
   // eslint-disable-next-line unicorn/no-array-reduce
@@ -12,11 +12,11 @@ export const generateFontColors = (configuration: UnionConfiguration) => {
         [key]: {
           color: value,
         },
-      });
+      })
     },
     {} as FontColors,
-  );
-};
+  )
+}
 
 export const generateFontSizes = () => {
   // eslint-disable-next-line unicorn/no-array-reduce
@@ -25,9 +25,9 @@ export const generateFontSizes = () => {
       [`size_${size}`]: {
         fontSize: size,
       },
-    });
-  }, {} as FontSizes);
-};
+    })
+  }, {} as FontSizes)
+}
 
 export const staticFontStyles = {
   alignCenter: {
@@ -42,4 +42,4 @@ export const staticFontStyles = {
   uppercase: {
     textTransform: 'uppercase',
   },
-} as const satisfies Record<string, TextStyle>;
+} as const satisfies Record<string, TextStyle>
