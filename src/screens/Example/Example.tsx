@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 
 import { useI18n } from '@/hooks'
 import { useTheme } from '@/theme'
 
-import useUserService from '@/api/services/hooks/useUser'
 import { AssetByVariant, IconByVariant, Skeleton } from '@/components/atoms'
 import { SafeScreen } from '@/components/templates'
 
@@ -13,7 +12,6 @@ const MAX_RANDOM_ID = 9
 
 function Example() {
   const { t } = useTranslation()
-  const { useGetUserById } = useUserService()
   const { toggleLanguage } = useI18n()
 
   const { backgrounds, changeTheme, colors, components, fonts, gutters, layout, variant } =
@@ -21,25 +19,14 @@ function Example() {
 
   const [userId, setUserId] = useState(-1)
 
-  const getUser = useGetUserById(userId)
-
-  useEffect(() => {
-    if (getUser.isSuccess) {
-      Alert.alert(t('screen_example.hello_user', { name: getUser.data?.username }))
-    }
-  }, [getUser.isSuccess, getUser.data, t])
-
   const onChangeTheme = () => {
     changeTheme(variant === 'default' ? 'dark' : 'default')
   }
 
-  const handleResetError = () => {
-    void getUser.refetch()
-  }
+  const handleResetError = () => {}
 
   return (
     <SafeScreen
-      isError={getUser.isError}
       onResetError={() => {
         handleResetError()
       }}
@@ -66,7 +53,6 @@ function Example() {
           <View style={[layout.row, layout.justifyBetween, layout.fullWidth, gutters.marginTop_16]}>
             <Skeleton
               height={64}
-              loading={getUser.isLoading}
               style={{ borderRadius: components.buttonCircle.borderRadius }}
               width={64}
             >

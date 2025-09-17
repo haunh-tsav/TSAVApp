@@ -48,7 +48,10 @@ export const userService = {
   getAllUsersFakeData: async (): Promise<User[] | undefined> => {
     return await apiClient
       .get<User[]>(`${endPoint}`)
-      .then(response => response.data)
+      .then(response => {
+        console.log('Fake data users loaded')
+        return response.data
+      })
       .catch(error => {
         console.error('Error fetching user by Code:', error)
         return undefined
