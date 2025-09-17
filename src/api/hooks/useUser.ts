@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { User } from '@/api/schemas/UserSchema'
-import { RequestDataType } from '../../types'
-import { userService } from '../user.service'
+import { userService } from '../services/user.service'
+import { RequestDataType } from '../types'
 
 export const DEFAULT_QUERY_USER_KEY = 'user' // key dùng để lưu cache user (username, email, employeeCode, ...)
 export const DEFAULT_QUERY_USERS_KEY = 'users' // key dùng để lưu cache danh sách users

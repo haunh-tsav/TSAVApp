@@ -5,13 +5,13 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ActivityIndicator, Text, View } from 'react-native'
 
-import { Paths } from '@/navigation/paths'
+import { RootPaths } from '@/navigation/paths'
 import { useTheme } from '@/theme'
 
 import { AssetByVariant } from '@/components/atoms'
 import { SafeScreen } from '@/components/templates'
 
-function Startup({ navigation }: RootScreenProps<Paths.Startup>) {
+function Startup({ navigation }: RootScreenProps<RootPaths.App>) {
   const { fonts, gutters, layout } = useTheme()
   const { t } = useTranslation()
 
@@ -26,7 +26,7 @@ function Startup({ navigation }: RootScreenProps<Paths.Startup>) {
     if (isSuccess) {
       navigation.reset({
         index: 0,
-        routes: [{ name: Paths.Example }],
+        routes: [{ name: RootPaths.App }],
       })
     }
   }, [isSuccess, navigation])
