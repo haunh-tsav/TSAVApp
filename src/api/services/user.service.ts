@@ -4,12 +4,12 @@ import apiClient from '../client'
 import { User } from '../schemas/UserSchema'
 import { RequestDataType, ResponseDataType } from '../types'
 
-const NAMESPACE = 'users'
+const endPoint = '/users'
 
 export const userService = {
   createUser: async (newItem: User): Promise<ResponseDataType<User> | undefined> => {
     return await apiClient
-      .post<ResponseDataType<User>>(`/${NAMESPACE}`, newItem)
+      .post<ResponseDataType<User>>(`${endPoint}`, newItem)
       .then(response => response.data)
       .catch(error => {
         console.error('Error fetching user by ID:', error)
@@ -18,7 +18,7 @@ export const userService = {
   },
   getUserById: async (userId: number): Promise<ResponseDataType<User> | undefined> => {
     return await apiClient
-      .get<ResponseDataType<User>>(`/${NAMESPACE}?id=${userId}`)
+      .get<ResponseDataType<User>>(`${endPoint}?id=${userId}`)
       .then(response => response.data)
       .catch(error => {
         console.error('Error fetching user by ID:', error)
@@ -27,7 +27,7 @@ export const userService = {
   },
   getUserByCode: async (code: string): Promise<ResponseDataType<User> | undefined> => {
     return await apiClient
-      .get<ResponseDataType<User>>(`/${NAMESPACE}?code=${code}`)
+      .get<ResponseDataType<User>>(`${endPoint}?code=${code}`)
       .then(response => response.data)
       .catch(error => {
         console.error('Error fetching user by Code:', error)
@@ -38,7 +38,16 @@ export const userService = {
     parameters: RequestDataType,
   ): Promise<ResponseDataType<User[]> | undefined> => {
     return await apiClient
-      .post<ResponseDataType<User[]>>(`/${NAMESPACE}`, parameters)
+      .post<ResponseDataType<User[]>>(`${endPoint}`, parameters)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error fetching user by Code:', error)
+        return undefined
+      })
+  },
+  getAllUsersFakeData: async (): Promise<User[] | undefined> => {
+    return await apiClient
+      .get<User[]>(`${endPoint}`)
       .then(response => response.data)
       .catch(error => {
         console.error('Error fetching user by Code:', error)
@@ -50,7 +59,7 @@ export const userService = {
     newItem: Partial<User>,
   ): Promise<ResponseDataType<User> | undefined> => {
     return await apiClient
-      .patch<ResponseDataType<User>>(`/${NAMESPACE}?id=${id}`, newItem)
+      .patch<ResponseDataType<User>>(`${endPoint}?id=${id}`, newItem)
       .then(response => response.data)
       .catch(error => {
         console.error('Error fetching user by Code:', error)
@@ -62,7 +71,7 @@ export const userService = {
     newItem: User,
   ): Promise<ResponseDataType<User> | undefined> => {
     return await apiClient
-      .put<ResponseDataType<User>>(`/${NAMESPACE}?id=${id}`, newItem)
+      .put<ResponseDataType<User>>(`${endPoint}?id=${id}`, newItem)
       .then(response => response.data)
       .catch(error => {
         console.error('Error fetching user by Code:', error)

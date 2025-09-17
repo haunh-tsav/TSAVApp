@@ -11,7 +11,7 @@ const enum UserQueryKey {
   fetchAll = 'fetchAllUsers',
 }
 
-export default function useUserService() {
+export default function useUser() {
   const queryClient = useQueryClient()
 
   const useCreateUser = useMutation({
@@ -92,6 +92,14 @@ export default function useUserService() {
       staleTime: 5 * 60 * 1000, // cache sống 5 phút, sau 5 phút sẽ gọi lại queryFn để lấy dữ liệu mới
     })
 
+  // Get all users with parameters (POST)
+  const useGetAllUsersFakeData = () =>
+    useQuery({
+      queryFn: async () => await userService.getAllUsersFakeData(), // hàm gọi API
+      queryKey: [DEFAULT_QUERY_USERS_KEY], // thêm parameters vào queryKey để phân biệt cache
+      staleTime: 5 * 60 * 1000, // cache sống 5 phút, sau 5 phút sẽ gọi lại queryFn để lấy dữ liệu mới
+    })
+
   const invalidateQuery = (queryKeys: UserQueryKey[]) =>
     queryClient.invalidateQueries({
       queryKey: queryKeys,
@@ -101,6 +109,7 @@ export default function useUserService() {
     invalidateQuery,
     useCreateUser,
     useGetAllUsers,
+    useGetAllUsersFakeData,
     useGetUserByCode,
     useGetUserById,
     usePartialUpdateUserById,
