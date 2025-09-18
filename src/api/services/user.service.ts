@@ -1,5 +1,6 @@
 // src/api/services/posts.service.ts
 
+import { AxiosError } from 'axios'
 import apiClient from '../client'
 import { User } from '../schemas/UserSchema'
 import { RequestDataType, ResponseDataType } from '../types'
@@ -48,9 +49,12 @@ export const userService = {
   getAllUsersFakeData: async (): Promise<User[] | undefined> => {
     return await apiClient
       .get<User[]>(`${endPoint}`)
-      .then(response => response.data)
-      .catch(error => {
-        console.error('Error fetching user by Code:', error)
+      .then(response => {
+        console.log('Fake data users:', response.data)
+        return response.data
+      })
+      .catch((error: AxiosError) => {
+        console.error('Error fetching user:', error.message)
         return undefined
       })
   },
