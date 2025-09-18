@@ -4,7 +4,7 @@ export const enum AuthPaths {
 }
 
 export const enum Paths {
-  Explore = 'login',
+  Explore = 'explore',
   Home = 'home',
   Profile = 'profile',
   Search = 'search',

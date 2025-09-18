@@ -20,3 +20,12 @@ export type RootStackParamList = {
   [RootPaths.App]: undefined
   [RootPaths.Auth]: undefined
 }
+
+// Drawer Navigator
+export type DrawerParamList = {
+  HomeTabs: undefined // Represents the bottom tab navigator
+  ExploreTabs: undefined
+  SearchTabs: undefined
+  ProfileTabs: undefined
+  // Add other drawer screens here
+}
